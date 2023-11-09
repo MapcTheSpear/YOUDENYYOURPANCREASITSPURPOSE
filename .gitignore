@@ -1,0 +1,4 @@
+venv/
+.idea/
+adb.sqlite3
+.env
