@@ -13,6 +13,7 @@ class Database:
 
         self.connection.execute(sql_queries.CREATE_USER_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_BAN_USER_TABLE_QUERY)
+        self.connection.execute(sql_queries.CREATE_USER_FORM_TABLE_QUERY)
 
         self.connection.commit()
 
@@ -46,5 +47,11 @@ class Database:
         self.cursor.execute(
             sql_queries.UPDATE_BAN_USER_COUNT_QUERY,
             (telegram_id,)
+        )
+        self.connection.commit()
+    def sql_insert_user_form_register(self, telegram_id, nickname, bio, geo, gender, age, photo):
+        self.cursor.execute(
+            sql_queries.INSERT_USER_FORM_REGISTRATION,
+            (None, telegram_id, nickname, bio, geo, gender, age, photo)
         )
         self.connection.commit()
