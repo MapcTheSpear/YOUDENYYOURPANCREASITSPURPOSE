@@ -1,7 +1,7 @@
 import sqlite3
 
 from aiogram import types, Dispatcher
-from config import bot
+from config import bot, ADMIN_ID
 from database.sql_commands import Database
 from keyboards.inline_buttons import questionnaire_keyboard
 
@@ -28,6 +28,19 @@ async def crips_call(call: types.CallbackQuery):
     )
 
 
+async def admin_call(call: types.CallbackQuery):
+    if call.from_user.id == int(ADMIN_ID):
+        await bot.send_message(
+            chat_id=call.from_user.id,
+            text="Sup, bro, aint forgettin u"
+        )
+    else:
+        await bot.send_message(
+            chat_id=call.from_user.id,
+            text="Who tf are u?"
+        )
+
+
 def register_callback_handlers(dp:Dispatcher):
     dp.register_callback_query_handler(start_questionnaire_call,
                                        lambda call: call.data == "start_questionnaire")
@@ -35,3 +48,5 @@ def register_callback_handlers(dp:Dispatcher):
                                        lambda call: call.data == "bloods")
     dp.register_callback_query_handler(crips_call,
                                        lambda call: call.data == "crips")
+    dp.register_message_handler(admin_call,
+                                       lambda word: "dorei" in word.text)

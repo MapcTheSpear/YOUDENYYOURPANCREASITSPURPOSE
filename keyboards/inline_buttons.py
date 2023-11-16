@@ -7,7 +7,12 @@ async def start_keyboard():
         "Ayo, bro, i have a question real quick",
         callback_data="start_questionnaire"
     )
+    registration_button = InlineKeyboardButton(
+        "Register here, NOW",
+        callback_data="registration"
+    )
     markup.add(questionnaire_button)
+    markup.add(registration_button)
     return markup
 
 
