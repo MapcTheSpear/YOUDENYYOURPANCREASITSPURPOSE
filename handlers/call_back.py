@@ -4,6 +4,7 @@ from aiogram import types, Dispatcher
 from config import bot, ADMIN_ID
 from database.sql_commands import Database
 from keyboards.inline_buttons import questionnaire_keyboard
+from scraping.spirit_scraper import SpiritScraper
 
 
 async def start_questionnaire_call(call: types.CallbackQuery):
@@ -40,6 +41,14 @@ async def admin_call(call: types.CallbackQuery):
             text="Who tf are u?"
         )
 
+async def anima_call(call : types.CallbackQuery):
+    scraper = SpiritScraper()
+    data = scraper.parse_data()
+    for url in data[:5]:
+        await bot.send_message(
+            chat_id=call.from_user.id,
+            text=f'{url}'
+        )
 
 def register_callback_handlers(dp:Dispatcher):
     dp.register_callback_query_handler(start_questionnaire_call,
@@ -50,3 +59,5 @@ def register_callback_handlers(dp:Dispatcher):
                                        lambda call: call.data == "crips")
     dp.register_message_handler(admin_call,
                                        lambda word: "dorei" in word.text)
+    dp.register_callback_query_handler(anima_call,
+                                       lambda  call: call.data == 'anime')

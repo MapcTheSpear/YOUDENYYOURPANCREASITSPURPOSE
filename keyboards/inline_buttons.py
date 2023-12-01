@@ -23,11 +23,16 @@ async def start_keyboard():
         "Reference Menu 🪲",
         callback_data="reference_menu"
     )
+    anime_button = InlineKeyboardButton(
+        "Anime series",
+        callback_data="anime"
+    )
     markup.add(questionnaire_button)
     markup.add(registration_button)
     markup.add(my_profile_button)
     markup.add(random_profiles_button)
     markup.add(reference_menu_button)
+    markup.add(anime_button)
     return markup
 
 
