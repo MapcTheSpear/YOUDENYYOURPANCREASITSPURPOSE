@@ -16,6 +16,7 @@ class Database:
         self.connection.execute(sql_queries.CREATE_USER_FORM_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_LIKE_FORM_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_REFERRAL_TABLE_QUERY)
+        self.connection.execute(sql_queries.CREATE_ASYNC_MOD_QUERY)
 
         try:
             self.connection.execute(sql_queries.ALTER_USER_TABLE)
@@ -178,3 +179,10 @@ class Database:
             sql_queries.SELECT_REFERAL_QUERY,
             (None, owner)
         ).fetchall()
+
+    def sql_insert_mods(self, link):
+        self.cursor.execute(
+            sql_queries.INSERT_ASYNC_MODS,
+            (None, link)
+        )
+        self.connection.commit()
