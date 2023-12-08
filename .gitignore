@@ -10,3 +10,4 @@ media
 config.py
 ./config.py
 /config.py
+/const.py
